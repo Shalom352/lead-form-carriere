@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de candidature - Axle IA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #30D158;
+            --secondary-color: #5AC8FA;
+            --accent-color: #007AFF;
+            --dark-bg: #1C1C1E;
+            --medium-bg: #2C2C2E;
+            --light-bg: #F2F2F7;
+            --text-primary: #000000;
+            --text-secondary: #6D6D80;
+            --text-light: #FFFFFF;
+            --border-color: #E5E5EA;
+            --success-color: #30D158;
+            --error-color: #FF3B30;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--light-bg);
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-header h1 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-header p {
+            color: var(--text-secondary);
+        }
+
+        .application-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-input-label {
+            display: block;
+            padding: 0.75rem;
+            background: var(--light-bg);
+            border: 2px dashed var(--primary-color);
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .file-input-wrapper:hover .file-input-label {
+            background: rgba(48, 209, 88, 0.1);
+        }
+
+        .submit-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(48, 209, 88, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .form-note {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .success-message {
+            display: none;
+            background: var(--success-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .error-message {
+            display: none;
+            background: var(--error-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 480px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .application-form {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-header">
+            <h1>Rejoignez Axle IA</h1>
+            <p>Postulez en quelques minutes</p>
+        </div>
+
+        <form class="application-form" id="jobApplicationForm">
+            <div class="form-group">
+                <label for="jobTitle">Poste souhaité *</label>
+                <select id="jobTitle" name="jobTitle" required>
+                    <option value="">Sélectionnez un poste</option>
+                    <option value="Développeur Fullstack Mid-Level">Développeur Fullstack Mid-Level</option>
+                    <option value="Développeur Mobile & Frontend">Développeur Mobile & Frontend</option>
+                    <option value="DevOps / SRE Engineer">DevOps / SRE Engineer</option>
+                    <option value="Lead Developer Fullstack">Lead Developer Fullstack</option>
+                    <option value="QA / Test Automation Engineer">QA / Test Automation Engineer</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">Prénom *</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Nom *</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Téléphone *</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+
+            <div class="form-group">
+                <label for="portfolio">Portfolio / Site web</label>
+                <input type="url" id="portfolio" name="portfolio" placeholder="https://votre-portfolio.com">
+                <p class="form-note">Lien vers votre portfolio, GitHub, ou site personnel</p>
+            </div>
+
+            <div class="form-group">
+                <label for="linkedin">LinkedIn</label>
+                <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/votre-profil">
+            </div>
+
+            <div class="form-group">
+                <label for="cv">CV (PDF, DOC, DOCX) *</label>
+                <div class="file-input-wrapper">
+                    <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx" required>
+                    <label for="cv" class="file-input-label">
+                        <span id="cvFileName">Cliquez pour choisir votre CV</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message de motivation</label>
+                <textarea id="message" name="message" placeholder="Parlez-nous de votre intérêt pour ce poste..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Envoyer ma candidature</button>
+            
+            <div class="success-message" id="successMessage">
+                ✓ Candidature envoyée avec succès ! Nous reviendrons vers vous rapidement.
+            </div>
+            
+            <div class="error-message" id="errorMessage">
+                Une erreur est survenue. Veuillez réessayer ou nous contacter directement.
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Gestion du formulaire
+        const cvInput = document.getElementById('cv');
+        const cvFileName = document.getElementById('cvFileName');
+        
+        cvInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                cvFileName.textContent = e.target.files[0].name;
+            } else {
+                cvFileName.textContent = 'Cliquez pour choisir votre CV';
+            }
+        });
+
+        // Soumission du formulaire vers ClickUp
+        document.getElementById('jobApplicationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = e.target.querySelector('.submit-btn');
+            const successMsg = document.getElementById('successMessage');
+            const errorMsg = document.getElementById('errorMessage');
+            
+            // Réinitialiser les messages
+            successMsg.style.display = 'none';
+            errorMsg.style.display = 'none';
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Envoi en cours...';
+            
+            // Récupération des données du formulaire
+            const formData = new FormData(e.target);
+            const jobTitle = formData.get('jobTitle');
+            
+            // Tags selon le poste
+            const tagMap = {
+                'Développeur Fullstack Mid-Level': ['recrutement', 'dev-fullstack', 'mid-level'],
+                'Développeur Mobile & Frontend': ['recrutement', 'dev-mobile', 'frontend'],
+                'DevOps / SRE Engineer': ['recrutement', 'devops', 'sre'],
+                'Lead Developer Fullstack': ['recrutement', 'lead-dev', 'fullstack'],
+                'QA / Test Automation Engineer': ['recrutement', 'qa', 'test-automation']
+            };
+            
+            // Préparation des données pour ClickUp
+            const applicationData = {
+                name: `Candidature - ${formData.get('firstName')} ${formData.get('lastName')} - ${jobTitle}`,
+                description: `
+**Candidat:** ${formData.get('firstName')} ${formData.get('lastName')}
+**Email:** ${formData.get('email')}
+**Téléphone:** ${formData.get('phone')}
+**Portfolio:** ${formData.get('portfolio') || 'Non fourni'}
+**LinkedIn:** ${formData.get('linkedin') || 'Non fourni'}
+**Poste:** ${jobTitle}
+
+**Message de motivation:**
+${formData.get('message') || 'Aucun message'}
+
+**CV:** Voir pièce jointe
+`,
+                status: 'nouvelle candidature',
+                priority: 3,
+                tags: tagMap[jobTitle] || ['recrutement']
+            };
+            
+            try {
+                // Configuration ClickUp - À remplacer par vos vraies valeurs
+                const CLICKUP_TOKEN = 'VOTRE_TOKEN_CLICKUP'; // À remplacer
+                const CLICKUP_LIST_ID = 'VOTRE_LIST_ID'; // À remplacer
+                
+                // Création de la tâche dans ClickUp
+                const response = await fetch(`https://api.clickup.com/api/v2/list/${CLICKUP_LIST_ID}/task`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': CLICKUP_TOKEN,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(applicationData)
+                });
+                
+                if (response.ok) {
+                    // Upload du CV si la tâche est créée
+                    const task = await response.json();
+                    const cvFile = formData.get('cv');
+                    
+                    if (cvFile && cvFile.size > 0) {
+                        const attachmentFormData = new FormData();
+                        attachmentFormData.append('attachment', cvFile);
+                        
+                        await fetch(`https://api.clickup.com/api/v2/task/${task.id}/attachment`, {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': CLICKUP_TOKEN
+                            },
+                            body: attachmentFormData
+                        });
+                    }
+                    
+                    // Succès
+                    submitBtn.textContent = 'Candidature envoyée ✓';
+                    submitBtn.style.background = '#30D158';
+                    successMsg.style.display = 'block';
+                    
+                    // Réinitialisation après 3 secondes
+                    setTimeout(() => {
+                        e.target.reset();
+                        cvFileName.textContent = 'Cliquez pour choisir votre CV';
+                        submitBtn.textContent = 'Envoyer ma candidature';
+                        submitBtn.disabled = false;
+                        submitBtn.style.background = '';
+                        successMsg.style.display = 'none';
+                    }, 3000);
+                    
+                } else {
+                    throw new Error('Erreur lors de l\'envoi');
+                }
+                
+            } catch (error) {
+                console.error('Erreur:', error);
+                
+                // Afficher message d'erreur
+                errorMsg.style.display = 'block';
+                
+                // Fallback : envoi par email
+                const mailtoLink = `mailto:recrutement@axle-ia.com?subject=Candidature - ${jobTitle}&body=${encodeURIComponent(`
+Candidature de ${formData.get('firstName')} ${formData.get('lastName')}
+
+Email: ${formData.get('email')}
+Téléphone: ${formData.get('phone')}
+Portfolio: ${formData.get('portfolio') || 'Non fourni'}
+LinkedIn: ${formData.get('linkedin') || 'Non fourni'}
+
+Message de motivation:
+${formData.get('message') || 'Aucun message'}
+
+Note: Merci de demander le CV en réponse à cet email.
+                `)}`;
+                
+                setTimeout(() => {
+                    window.location.href = mailtoLink;
+                }, 2000);
+                
+                submitBtn.textContent = 'Envoyer ma candidature';
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
